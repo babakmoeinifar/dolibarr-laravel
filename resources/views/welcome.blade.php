@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
 <style>
     @font-face {
     font-family: IRANSansX;
@@ -37,6 +39,8 @@
 @endforeach
 
 <script>
+    Chart.register(ChartDataLabels);
+
     function getRandomColor() {
         var r = Math.floor(Math.random() * 255);
         var g = Math.floor(Math.random() * 255);
@@ -45,7 +49,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        @foreach($categories as $category)
+    @foreach($categories as $category)
         var ctx = document.getElementById('stockChart{{$category->rowid}}').getContext('2d');
         var randomColor = getRandomColor();
 
@@ -94,16 +98,24 @@
                     }
                 },
                 plugins: {
+                    datalabels: {  // Configure datalabels plugin
+                        color: '#000',
+                        anchor: 'end',
+                        align: 'center',
+                        formatter: function(value) {
+                            return Math.round(value).toLocaleString('en-Us');
+                        }
+                    },
                     legend: {
                         display: true,
                         position: 'top',
-                        rtl : true,
-                        textDirection:'rtl',
+                        rtl: true,
+                        textDirection: 'ltr',
                         labels: {
-                    font: {
-                        size: 15
-                    }
-                }
+                            font: {
+                                size: 15
+                            }
+                        }
                     }
                 }
             }
