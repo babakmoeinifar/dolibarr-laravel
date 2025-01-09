@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +32,8 @@ Route::get('/', function () {
 
     return view('welcome', compact('categories', 'productsByCategory'));
 });
+
+Route::get('sales', [\App\Http\Controllers\MontajController::class, 'index'])->name('sales.index');
+
+Route::post('sales', [\App\Http\Controllers\MontajController::class, 'store'])->name('sales.store');
+Route::get('sales/toggleStatus', [\App\Http\Controllers\MontajController::class, 'toggleStatus'])->name('sales.toggleStatus');

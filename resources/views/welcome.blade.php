@@ -103,7 +103,7 @@
                         anchor: 'end',
                         align: 'center',
                         formatter: function(value) {
-                            return Math.round(value).toLocaleString('en-Us');
+                            return value ? Math.round(value).toLocaleString('en-Us') : '';
                         }
                     },
                     legend: {
