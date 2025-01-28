@@ -34,6 +34,8 @@ Route::get('/', function () {
 });
 
 Route::get('sales', [\App\Http\Controllers\MontajController::class, 'index'])->name('sales.index');
+Route::get('sales-dev', [\App\Http\Controllers\MontajController::class, 'indexDev'])->name('sales.indexDev');
+Route::get('montaj', [\App\Http\Controllers\MontajController::class, 'montaj'])->name('sales.montaj');
 
 Route::post('sales', [\App\Http\Controllers\MontajController::class, 'store'])->name('sales.store');
 Route::get('sales/toggleStatus', [\App\Http\Controllers\MontajController::class, 'toggleStatus'])->name('sales.toggleStatus');

@@ -19,6 +19,37 @@ class MontajController extends Controller
             ->get();
         return view('Montaj.index',$data);
     }
+    public function indexDev()
+    {
+        // order by more qty
+        $data['devices'] = \App\Models\Montaj\Device::withSum(['sales' => function($query) {
+            $query->where('status', 'new');
+        }], 'qty')->orderBy('sales_sum_qty', 'desc')->get();
+
+        $data['newSales'] = \App\Models\Montaj\Sales::with('device')
+            ->where('status', 'new')
+            ->orderBy('exit_date')
+            ->get();
+        return view('Montaj.index-dev',$data);
+    }
+
+    public function montaj()
+    {
+        // order by more qty
+        $data['devices'] = \App\Models\Montaj\Device::withSum(['sales' => function($query) {
+            $query->where('status', 'new');
+        }], 'qty')->orderBy('sales_sum_qty', 'desc')->get();
+
+        $data['newSales'] = \App\Models\Montaj\Sales::with('device')
+            ->where('status', 'new')
+            ->select('exit_date', 'device_id', 'comment', \DB::raw('SUM(qty) as total_qty'))
+            ->groupBy('exit_date', 'device_id', 'comment')
+            ->orderBy('exit_date')
+            ->get()
+            ->groupBy('exit_date');
+
+        return view('Montaj.montaj',$data);
+    }
 
     public function store(Request $request)
     {
@@ -39,6 +70,7 @@ class MontajController extends Controller
                     'qty' => $data['qty'],
                     'customer_name' => $request->customer_name,
                     'exit_date' => $request->exit_date,
+                    'comment' => $data['comment'] ?? '',
                 ]);
             }
         }

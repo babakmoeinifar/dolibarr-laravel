@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_name');
             $table->date('exit_date');
             $table->enum('status',['new','done','cancel'])->default('new');
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }

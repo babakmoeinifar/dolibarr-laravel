@@ -34,12 +34,9 @@
     @include('messages')
     <div class="page-title mb-4">
         <h1 class="mb-2 text-center">آمار آنلاین فروش</h1>
-        <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             + فروش جدید
         </button>
-        <a href="{{ url('montaj') }}" class="btn btn-secondary" target="_blank">بخش مونتاژ</a>
-        </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
